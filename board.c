@@ -1,14 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void print_board(char *board);
 void emptyBoard64();
 void printBoard64(char *board);
+void initBoard(char *board);
 
 int main()
 {
     char board[64];
-    emptyBoard64(board);
+    initBoard(board);
     printBoard64(board);
     return 0;
 }
@@ -76,6 +76,35 @@ void emptyBoard64(char *board)
     {
         board[i] = '.';
     }
+}
+
+void initBoard(char *board)
+{
+    // black pieces
+    board[0] = 'r';
+    board[1] = 'n';
+    board[2] = 'b';
+    board[3] = 'q';
+    board[4] = 'k';
+    board[5] = 'b';
+    board[6] = 'n';
+    board[7] = 'r';
+    for (int i = 8; i < 16; i++)
+        board[i] = 'p';
+    // empty spaces
+    for (int i = 16; i < 48; i++)
+        board[i] = '.';
+    // white pieces
+    for (int i = 48; i < 56; i++)
+        board[i] = 'P';
+    board[56] = 'R';
+    board[57] = 'N';
+    board[58] = 'B';
+    board[59] = 'Q';
+    board[60] = 'K';
+    board[61] = 'B';
+    board[62] = 'N';
+    board[63] = 'R';
 }
 
 void printBoard64(char *board)
