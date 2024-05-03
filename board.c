@@ -2,8 +2,18 @@
 #include<stdlib.h>
 
 void print_board(char *board);
+void emptyBoard64();
+void printBoard64(char *board);
 
 int main()
+{
+    char board[64];
+    emptyBoard64(board);
+    printBoard64(board);
+    return 0;
+}
+
+int test_board()
 {
     char board[64];
     //black pieces
@@ -46,6 +56,53 @@ int main()
     return 0;
 }
 
+/*char** emptyBoard()
+{
+    char board[8][8];
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            board[i][j] = '.';
+        }
+    }
+    return board;
+}*/
+
+void emptyBoard64(char *board)
+{
+    for (int i = 0; i < 64; i++)
+    {
+        board[i] = '.';
+    }
+}
+
+void printBoard64(char *board)
+{
+    for (int i = 0; i < 64; i++)
+    {
+        printf("%c ", board[i]);
+        if ((i + 1) % 8 == 0)
+            printf("\n");
+    }
+}
+
+
+/*void printBoard(char board[][])
+{
+    printf("enter print\n");
+    for (int i = 0; i < 8; i++)
+    {
+        printf("for i %i\n", i);
+        for (int j = 0; j < 8; j++)
+        {
+            printf("for j = %i\n", j);
+            printf("%c", board[i][j]);
+            printf("exit for \n");
+        }
+    }
+}*/
 
 /*void print_board(char *board)
 {
