@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 void emptyBoard64();
 void printBoard64(char *board);
@@ -15,7 +16,8 @@ int main()
     printBoard64(board);
     for (int i = 0; i < 64; i++)
     {
-        printf("(%c %i) ", get_file(i), get_rank(i));
+        //printf("(%c %c) ", get_file(i), get_rank(i));
+        printf("(%s) ", get_coordinates(i));
         if ((i + 1) % 8 == 0)
             printf("\n");
     }
@@ -167,11 +169,49 @@ char get_rank(int a)
 {
     //int tmp = 64 - a;
     int tmp = 63 - a;
-    int file = (tmp / 8) + 1;
-    return (char)file;
+    int tmp2 = (tmp / 8) + 1;
+    char rank;
+    switch (tmp2)
+    {
+        case 1:
+            rank = '1';
+            break;
+        case 2:
+            rank = '2';
+            break;
+        case 3:
+            rank = '3';
+            break;
+        case 4:
+            rank = '4';
+            break;
+        case 5:
+            rank = '5';
+            break;
+        case 6:
+            rank = '6';
+            break;
+        case 7:
+            rank = '7';
+            break;
+        case 8:
+            rank = '8';
+            break;
+        default:
+            rank = 'Z';
+            break;
+    }
+    return rank;
 }
 
-
+char* get_coordinates(int a)
+{
+    char file = get_file(a);
+    char rank = get_rank(a);
+    //char *coordinates = strcat(file, rank);
+    char *coordinates = file + rank;
+    return coordinates;
+}
 /*void printBoard(char board[][])
 {
     printf("enter print\n");
