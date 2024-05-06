@@ -8,19 +8,22 @@ void initBoard(char *board);
 char get_file(int a);
 char get_rank(int a);
 char* get_coordinates(int a);
+int get_color(char piece);
+char* char_to_string(char a);
 
 int main()
 {
     char board[64];
     initBoard(board);
     printBoard64(board);
+    printf("%s\n", get_coordinates(1));
     for (int i = 0; i < 64; i++)
     {
-        //printf("(%c %c) ", get_file(i), get_rank(i));
-        printf("(%s) ", get_coordinates(i));
+        //printf("%s ", get_coordinates(i));
         if ((i + 1) % 8 == 0)
             printf("\n");
     }
+
     return 0;
 }
 
@@ -206,11 +209,120 @@ char get_rank(int a)
 
 char* get_coordinates(int a)
 {
-    char file = get_file(a);
-    char rank = get_rank(a);
+    printf("a\n");
+    char *file;
+    char *rank;
+    strcpy(file, char_to_string(get_file(a)));
+    printf("file : %s\n", file);
+    strcpy(rank, char_to_string(get_rank(a)));
+    printf("rank : %s\n", rank);
     //char *coordinates = strcat(file, rank);
-    char *coordinates = file + rank;
+    char *coordinates = strcat(file, rank);
+    printf("coor : %s\n", coordinates);
     return coordinates;
+}
+
+char* char_to_string(char a)
+{
+    switch (a)
+    {
+        case '1':
+            return "1\0";
+        case '2':
+            return "2\0";
+        case '3':
+            return "3\0";
+        case '4':
+            return "4\0";
+        case '5':
+            return "5\0";
+        case '6':
+            return "6\0";
+        case '7':
+            return "7\0";
+        case '8':
+            return "8\0";
+        case 'a':
+            return "a\0";
+        case 'b':
+            return "b\0";
+        case 'c':
+            return "c\0";
+        case 'd':
+            return "d\0";
+        case 'e':
+            return "e\0";
+        case 'f':
+            return "f\0";
+        case 'g':
+            return "g\0";
+        case 'h':
+            return "h\0";
+        case 'k':
+            return "k\0";
+        case 'n':
+            return "n\0";
+        case 'p':
+            return "p\0";
+        case 'q':
+            return "q\0";
+        case 'r':
+            return "r\0";
+        case 'A':
+            return "A\0";
+        case 'B':
+            return "B\0";
+        case 'C':
+            return "C\0";
+        case 'D':
+            return "D\0";
+        case 'E':
+            return "E\0";
+        case 'F':
+            return "F\0";
+        case 'G':
+            return "G\0";
+        case 'H':
+            return "H\0";
+        case 'K':
+            return "K\0";
+        case 'N':
+            return "N\0";
+        case 'P':
+            return "P\0";
+        case 'Q':
+            return "Q\0";
+        case 'R':
+            return "R\0";
+        case '.':
+            return ".\0";
+    }
+    return "X\0";
+}
+
+int get_color(char piece)
+{
+    switch(piece) // white pieces
+    {
+        case 'P':
+        case 'R':
+        case 'N':
+        case 'B':
+        case 'Q':
+        case 'K':
+            return 1;
+    }
+    switch(piece) // black pieces
+    {
+        case 'p':
+        case 'r':
+        case 'n':
+        case 'b':
+        case 'q':
+        case 'k':
+            return 2;
+    }
+    return 0; // empty square
 }
 /*void printBoard(char board[][])
 {
