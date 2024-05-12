@@ -2,27 +2,30 @@
 #include<stdlib.h>
 #include<string.h>
 
-void emptyBoard64();
-void printBoard64(char *board);
+void emptyBoard(char *board);
+void printBoard(char *board);
 void initBoard(char *board);
 char get_file(int a);
 char get_rank(int a);
 char* get_coordinates(int a);
 int get_color(char piece);
 char* char_to_string(char a);
+void bishop_move(int pos);
+void pawn_move(int pos);
 
 int main()
 {
-    char board[64];
-    initBoard(board);
-    printBoard64(board);
-    printf("%s\n", get_coordinates(1));
-    for (int i = 0; i < 64; i++)
+    //char board[64];
+    //initBoard(board);
+    //printBoard(board);
+    pawn_move(42);
+    //printf("%s\n", get_coordinates(1));
+    /*for (int i = 0; i < 64; i++)
     {
         //printf("%s ", get_coordinates(i));
         if ((i + 1) % 8 == 0)
             printf("\n");
-    }
+    }*/
 
     return 0;
 }
@@ -84,7 +87,7 @@ int test_board()
     return board;
 }*/
 
-void emptyBoard64(char *board)
+void emptyBoard(char *board)
 {
     for (int i = 0; i < 64; i++)
     {
@@ -121,7 +124,7 @@ void initBoard(char *board)
     board[63] = 'R';
 }
 
-void printBoard64(char *board)
+void printBoard(char *board)
 {
     for (int i = 0; i < 64; i++)
     {
@@ -210,14 +213,15 @@ char get_rank(int a)
 char* get_coordinates(int a)
 {
     printf("a\n");
-    char *file;
-    char *rank;
+    char file[1] = "";
+    char rank[1] = "";
+    char *coordinates;
     strcpy(file, char_to_string(get_file(a)));
     printf("file : %s\n", file);
     strcpy(rank, char_to_string(get_rank(a)));
     printf("rank : %s\n", rank);
     //char *coordinates = strcat(file, rank);
-    char *coordinates = strcat(file, rank);
+    coordinates = strcat(file, rank);
     printf("coor : %s\n", coordinates);
     return coordinates;
 }
@@ -323,6 +327,84 @@ int get_color(char piece)
             return 2;
     }
     return 0; // empty square
+}
+
+void bishop_move(int pos)
+{
+    char board[64];
+    emptyBoard(board);
+    for (int i = pos; i < 64; i = i + 9)
+    {
+        board[i] = 'x';
+        if ((get_file(i) == 'h') || (get_rank(i) == '1'))
+            break;
+    }
+    for (int i = pos; i < 64; i = i + 7)
+    { 
+        board[i] = 'x';
+        if ((get_file(i) == 'a') || (get_rank(i) == '1'))
+            break;
+    }
+    for (int i = pos; i > -1; i = i - 7)
+    {
+        board[i] = 'x';
+        if ((get_rank(i) == '8') || (get_file(i) == 'h'))
+            break;
+    }
+    for (int i = pos; i > -1; i = i - 9)
+    {
+        board[i] = 'x';
+        if ((get_rank(i) == '8') || (get_file(i) == 'a'))
+            break;
+    }
+    board[pos] = 'b';
+    printBoard(board);
+}
+
+void pawn_move(int pos)
+{
+    char board[64];
+    emptyBoard(board);
+    board[pos] = 'p';
+    printf("rank : %c\n", get_rank(pos));
+
+    if (get_rank(pos) == '2')
+    {
+        if (board[pos - 8] == '.')
+        {
+            board[pos - 8] = ':';
+            if (board[pos - 16] == '.')
+            {
+                board[pos - 16] = ':';
+                // en passant
+            }
+        }
+    }
+    else if (get_rank(pos) == '7')
+    {
+        if (board[pos - 8] == '.')
+        {
+            board[pos - 8] = 'q';
+            //promotion
+        }
+    }
+    else if ((get_rank(pos) > '2') && (get_rank(pos) < '7'))
+    {
+        printf("a\n");
+        if (board[pos - 8] == '.')
+        {
+            printf("b\n");
+            board[pos - 8] = ':';
+        }
+    }
+    // capture
+    //if (board[pos - 9] != '.')
+    if (get_file(pos) != 'a')
+        board[pos - 9] = 'x';
+    //if (board[pos - 7] != '.')
+    if (get_file(pos) != 'h')
+        board[pos - 7] = 'x';
+    printBoard(board);
 }
 /*void printBoard(char board[][])
 {
