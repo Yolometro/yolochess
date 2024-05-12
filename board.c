@@ -8,7 +8,7 @@ int main()
     //char board[64];
     //initBoard(board);
     //printBoard(board);
-    rook_move(63);
+    knight_move(35);
     //printf("%s\n", get_coordinates(1));
     /*for (int i = 0; i < 64; i++)
     {
@@ -424,6 +424,31 @@ void rook_move(int pos)
     // down move
     for (int i = pos + 8; i < 64; i = i + 8)
         board[i] = 'x';
+    printBoard(board);
+}
+
+void knight_move(int pos)
+{
+    char board[64];
+    emptyBoard(board);
+    board[pos] = 'n';
+    printf("%i, %c, %c\n", pos - 17, get_file(pos - 17), get_file(pos) - 1);
+    if ((pos - 17 > -1) && (get_file(pos - 17) == get_file(pos) - 1))
+        board[pos - 17] = 'x';
+    if ((pos - 15 > -1) && (get_file(pos - 15) == get_file(pos) + 1))
+        board[pos - 15] = 'x';
+    if ((pos - 10 > -1) && (get_file(pos - 10) == get_file(pos) - 2))
+        board[pos - 10] = 'x';
+    if ((pos - 6 > -1) && (get_file(pos - 6) == get_file(pos) + 2))
+        board[pos - 6] = 'x';
+    if ((pos + 6 < 64) && (get_file(pos + 6) == get_file(pos) - 2))
+        board[pos + 6] = 'x';
+    if ((pos + 10 < 64) && (get_file(pos + 10) == get_file(pos) + 2))
+        board[pos + 10] = 'x';
+    if ((pos + 15 < 64) && (get_file(pos + 15) == get_file(pos) - 1))
+        board[pos + 15] = 'x';
+    if ((pos + 17 < 64) && (get_file(pos + 17) == get_file(pos) + 1))
+        board[pos + 17] = 'x';
     printBoard(board);
 }
 /*void printBoard(char board[][])
