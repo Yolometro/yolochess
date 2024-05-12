@@ -8,3 +8,4 @@ int get_color(char piece);
 char* char_to_string(char a);
 void bishop_move(int pos);
 void pawn_move(int pos);
+void rook_move(int pos);
