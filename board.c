@@ -8,7 +8,9 @@ int main()
     //char board[64];
     //initBoard(board);
     //printBoard(board);
-    king_move(48);
+    //queen_move(63);
+    
+    //king_move(48);
     //printf("%s\n", get_coordinates(1));
     /*for (int i = 0; i < 64; i++)
     {
@@ -348,6 +350,78 @@ void bishop_move(int pos)
             break;
     }
     board[pos] = 'b';
+    printBoard(board);
+}
+
+void queen_move(int pos)
+{
+    char board[64];
+    int cur;
+    emptyBoard(board);
+    board[pos] = 'q';
+    // bishop moves
+    // up left
+    for (int i = 1; i < 8; i++)
+    {
+        cur = pos - i - (i * 8);
+        if (cur < 0)
+            break;
+        if (get_file(cur) != get_file(pos) - i)
+            break;
+        //if ((get_file(pos - i - (i * 8)))
+        board[cur] = 'x';
+    }
+    //up right
+    for (int i = 1; i < 8; i++)
+    {
+        cur = pos + i - (i * 8);
+        if (cur < 0)
+            break;
+        if (get_file(cur) != get_file(pos) + i)
+            break;
+        board[cur] = 'x';
+    }
+    // down left
+    for (int i = 1; i < 8; i++)
+    {
+        cur = pos - i + (i * 8);
+        if (cur > 63)
+            break;
+        if (get_file(cur) != get_file(pos) - i)
+            break;
+        board[cur] = 'x';
+    }
+    // down right
+    for (int i = 1; i < 8; i++)
+    {
+        cur = pos + i + (i * 8);
+        if (cur > 63)
+            break;
+        if (get_file(cur) != get_file(pos) + i)
+            break;
+        board[cur] = 'x';
+    }
+    // rook moves
+    // left move
+    for (int i = pos - 1; i > -1; i--)
+    {
+        if (get_rank(i) != get_rank(pos))
+            break;
+        board[i] = 'x';
+    }
+    // right move
+    for (int i = pos + 1; i < 64; i++)
+    {
+        if (get_rank(i) != get_rank(pos))
+            break;
+        board[i] = 'x';
+    }
+    // up move
+    for (int i = pos - 8; i > -1; i = i - 8)
+        board[i] = 'x';
+    // down move
+    for (int i = pos + 8; i < 64; i = i + 8)
+        board[i] = 'x';
     printBoard(board);
 }
 
