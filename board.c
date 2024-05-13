@@ -8,7 +8,7 @@ int main()
     //char board[64];
     //initBoard(board);
     //printBoard(board);
-    //queen_move(63);
+    queen_move(63);
     
     //king_move(48);
     //printf("%s\n", get_coordinates(1));

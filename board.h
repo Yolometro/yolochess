@@ -11,3 +11,4 @@ void pawn_move(int pos);
 void rook_move(int pos);
 void knight_move(int pos);
 void king_move(int pos);
+void queen_move(int pos);
