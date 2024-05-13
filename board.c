@@ -1,26 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
-void emptyBoard(char *board);
-void printBoard(char *board);
-void initBoard(char *board);
-char get_file(int a);
-char get_rank(int a);
-char* get_coordinates(int a);
-int get_color(char piece);
-char* char_to_string(char a);
-void bishop_move(int pos);
-void pawn_move(int pos);
-void queen_move(int pos);
+#include"board.h"
 
 int main()
 {
     //char board[64];
     //initBoard(board);
     //printBoard(board);
-    queen_move(63);
+    //queen_move(63);
     
+    //king_move(48);
     //printf("%s\n", get_coordinates(1));
     /*for (int i = 0; i < 64; i++)
     {
@@ -478,6 +468,86 @@ void pawn_move(int pos)
     //if (board[pos - 7] != '.')
     if (get_file(pos) != 'h')
         board[pos - 7] = 'x';
+    printBoard(board);
+}
+
+void rook_move(int pos)
+{
+    char board[64];
+    emptyBoard(board);
+    board[pos] = 'r';
+    // left move
+    for (int i = pos - 1; i > -1; i--)
+    {
+        if (get_rank(i) != get_rank(pos))
+            break;
+        board[i] = 'x';
+    }
+    // right move
+    for (int i = pos + 1; i < 64; i++)
+    {
+        if (get_rank(i) != get_rank(pos))
+            break;
+        board[i] = 'x';
+    }
+    // up move
+    for (int i = pos - 8; i > -1; i = i - 8)
+    {
+        board[i] = 'x';
+    }
+    // down move
+    for (int i = pos + 8; i < 64; i = i + 8)
+        board[i] = 'x';
+    printBoard(board);
+}
+
+void knight_move(int pos)
+{
+    char board[64];
+    emptyBoard(board);
+    board[pos] = 'n';
+    if ((pos - 17 > -1) && (get_file(pos - 17) == get_file(pos) - 1))
+        board[pos - 17] = 'x';
+    if ((pos - 15 > -1) && (get_file(pos - 15) == get_file(pos) + 1))
+        board[pos - 15] = 'x';
+    if ((pos - 10 > -1) && (get_file(pos - 10) == get_file(pos) - 2))
+        board[pos - 10] = 'x';
+    if ((pos - 6 > -1) && (get_file(pos - 6) == get_file(pos) + 2))
+        board[pos - 6] = 'x';
+    if ((pos + 6 < 64) && (get_file(pos + 6) == get_file(pos) - 2))
+        board[pos + 6] = 'x';
+    if ((pos + 10 < 64) && (get_file(pos + 10) == get_file(pos) + 2))
+        board[pos + 10] = 'x';
+    if ((pos + 15 < 64) && (get_file(pos + 15) == get_file(pos) - 1))
+        board[pos + 15] = 'x';
+    if ((pos + 17 < 64) && (get_file(pos + 17) == get_file(pos) + 1))
+        board[pos + 17] = 'x';
+    printBoard(board);
+}
+
+void king_move(int pos)
+{
+    char board[64];
+    emptyBoard(board);
+    board[pos] = 'k';
+    if ((pos - 9 > -1) && (get_file(pos - 9) == get_file(pos) - 1))
+        board[pos - 9] = 'x';
+    if ((pos - 8 > -1) && (get_file(pos - 8) == get_file(pos)))
+        board[pos - 8] = 'x';
+    if ((pos - 7 > -1) && (get_file(pos - 7) == get_file(pos) + 1))
+        board[pos - 7] = 'x';
+    if ((pos - 1 > -1) && (get_file(pos - 1) == get_file(pos) - 1))
+        board[pos - 1] = 'x';
+    if ((pos + 1 < 64) && (get_file(pos + 1) == get_file(pos) + 1))
+        board[pos + 1] = 'x';
+    if ((pos + 7 < 64) && (get_file(pos + 7) == get_file(pos) - 1))
+        board[pos + 7] = 'x';
+    if ((pos + 8 < 64) && (get_file(pos + 8) == get_file(pos)))
+        board[pos + 8] = 'x';
+    if ((pos + 9 < 64) && (get_file(pos + 9) == get_file(pos) + 1))
+        board[pos + 9] = 'x';
+    // long castle
+    // short castle
     printBoard(board);
 }
 /*void printBoard(char board[][])
